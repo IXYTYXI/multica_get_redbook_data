@@ -1,0 +1,14 @@
+# Secrets / local config
+.env
+cookies.json
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Runtime artifacts
+downloads/
+*.log
