@@ -22,13 +22,25 @@ Self-built skill to scrape Xiaohongshu data (note search / author profile / note
 
 ### 1. Xiaohongshu login session (Stage 1+)
 
-Signing requires a logged-in browser session. Provide the full cookie string from a
-logged-in `xiaohongshu.com` session (key fields include `a1`, `web_session`) via the
-environment variable `XHS_COOKIE`.
+Signing requires a logged-in browser session. Two ways to provide it (same as
+douyin-scraper):
 
-- In Multica, inject it into the agent's **custom_env** (`multica agent env set`), NOT a
-  workdir file — each task runs in an isolated workdir.
-- **Never paste the cookie in issue comments.**
+**A. `login` command (recommended on a desktop runtime).** Run:
+
+```bash
+python main.py login
+```
+
+A visible browser opens; log into `xiaohongshu.com` (QR or phone). Once login is
+detected it auto-saves the session to **`cookies.json`** (a Playwright cookie array)
+in the skill root and mirrors the cookie string to `.env` as `XHS_COOKIE`. Scraping
+then loads `cookies.json` automatically. `cookies.json` / `.env` are git-ignored.
+
+**B. `XHS_COOKIE` env var.** If you already have the full cookie string (key fields
+`a1`, `web_session`), set it as `XHS_COOKIE` (e.g. the agent's custom_env). Used only
+when no `cookies.json` is present.
+
+- **Never paste the cookie in issue comments.** Use a throwaway account.
 
 ### 2. Feishu app credentials
 
